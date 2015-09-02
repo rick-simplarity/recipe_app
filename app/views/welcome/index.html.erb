@@ -1,0 +1,98 @@
+<div class="page-header"><h1>Tech Talent Recipes <small>A Totally Original Idea</small></h1></div>
+
+
+
+<% if user_signed_in? %>
+
+<!-- We'll build this case in the next step. Right now, let's focus on the case of the user not being signed in. -->
+
+<h3><%= current_user.name %></h3>
+
+<p id="notice"><%= notice %></p>
+
+<h1>My Recipes</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Ingredients</th>
+      <th>Instructions</th>
+      <th>Picture</th>
+<!--  <th>Minutes to prepare</th>
+      <th>Minutes to cook</th>
+      <th>Total Time</th>-->
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_user.recipes.each do |recipe| %>
+      <tr>
+        <td><%= link_to recipe.name, recipe %></td>
+        <td><%= recipe.category %></td>
+        <td><%= recipe.ingredients %></td>
+        <td><%= recipe.instructions %></td>
+        <td><%= image_tag(recipe.picture, :width => 200)%></td>
+<!--    <td><%= recipe.minutes_to_prepare %></td>
+        <td><%= recipe.minutes_to_cook %></td>
+        <td><%= recipe.minutes_total %></td>-->
+        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
+        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recipe', new_recipe_path %>
+
+<% else %>
+
+<!-- Below is the form to place the sign-in fields on this page, no one is expecting you to memorize this code. Just remember where you can copying it from (like an old/this project, or in a special file of code you want easy access to). -->
+
+<div class="container">
+
+<div class="col-md-6">
+
+<h3>Welcome Back! Sign In:</h3><br />
+
+<!-- The form to sign-in; for right now, we'll
+
+have them sign-in using their name, but we may
+
+change it later so that they sign in using their
+
+handle instead (or maybe have it so they can do either).
+
+-->
+
+<%= render 'sign_in' %>
+
+</div>
+
+
+
+<div class="col-md-6">
+
+<h3>Not yet registered?</h3><br />
+
+<!-- Let's pull the registration form from the
+
+devise Views - /devise/registrations/new.html.erb,
+
+and add some new fields for the name and handle
+
+which we adding in after the fact.
+
+-->
+
+<%= render 'sign_up' %>
+
+</div>
+
+</div>
+
+<% end %>

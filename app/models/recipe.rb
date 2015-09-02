@@ -12,5 +12,5 @@ class Recipe < ActiveRecord::Base
 			minutes_to_cook
 		end
 	end
+	belongs_to :user
 end
-  
